@@ -1,0 +1,45 @@
+services:
+  blog_1:
+    build: ./docker/httpd
+    container_name: blog-1
+    ports:
+      - 8951:80
+
+  blog_2:
+    build: ./docker/httpd
+    container_name: blog-2
+    ports:
+      - 8952:80
+
+  blog_3:
+    build: ./docker/httpd
+    container_name: blog-3
+    ports:
+      - 8953:80
+
+  blog_4:
+    build: ./docker/httpd
+    container_name: blog-4
+    ports:
+      - 8954:80
+
+  load_balancer:
+    build: ./docker/nginx
+    container_name: blog-lb
+    ports:
+      - 8965:80
+    depends_on:
+      - blog_1
+      - blog_2
+      - blog_3
+      - blog_4
+    links:
+      - blog_1
+      - blog_2
+      - blog_3
+      - blog_4
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./docker/nginx/default.conf
+          target: /etc/nginx/conf.d/default.conf
