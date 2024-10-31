@@ -1,0 +1,20 @@
+name: ng
+services:
+  agent:
+    image: ngrinder/agent
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - controller
+    links:
+      - controller
+  controller:
+    image: ngrinder/controller
+    container_name: ng_controller
+    ports:
+      - 1234:80
+      - 16001:16001
+      - 12000-12009:12000-12009
+    volumes:
+      - ~/ngrinder-controller:/opt/ngrinder-controller

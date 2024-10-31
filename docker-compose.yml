@@ -9,14 +9,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: '0.50'
-          memory: 50M
+          cpus: '0.01'
+          memory: 6M
           #pids: 1
         reservations:
-          cpus: '0.25'
-          memory: 20M
+          cpus: '0.01'
+          memory: 6M
     environment:
-      - VIRTUAL_HOST=localhost
+      - VIRTUAL_HOST=localhost,3.36.66.198,172.31.46.255
       - VIRTUAL_PORT=80
 
   load_balancer:
@@ -28,3 +28,11 @@ services:
       - blog
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '0.05'
+          memory: 50M
+        reservations:
+          cpus: '0.01'
+          memory: 6M
