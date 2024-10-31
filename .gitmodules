@@ -1,0 +1,3 @@
+[submodule "docker/httpd"]
+	path = docker/httpd
+	url = https://github.com/rlaehgus97/k1s.git
